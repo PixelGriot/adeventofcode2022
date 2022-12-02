@@ -42,7 +42,28 @@ def computeScore(strategy):
     return shapeScore + outcomeScore
 
 
-
+def inferMyShape(strategy):
+    if (strategy[0] == "A" and strategy[1] == "X"):
+        return "Z"
+    elif (strategy[0] == "A" and strategy[1] == "Y"):
+        return "X"
+    elif (strategy[0] == "A" and strategy[1] == "Z"):
+        return "Y"
+    elif (strategy[0] == "B" and strategy[1] == "X"):
+        return "X"
+    elif (strategy[0] == "B" and strategy[1] == "Y"):
+        return "Y"
+    elif (strategy[0] == "B" and strategy[1] == "Z"):
+        return "Z"
+    elif (strategy[0] == "C" and strategy[1] == "X"):
+        return "Y"
+    elif (strategy[0] == "C" and strategy[1] == "Y"):
+        return "Z"
+    elif (strategy[0] == "C" and strategy[1] == "Z"):
+        return "X"
+    else:
+        print("SCREAM: Something went wrong!")
+        return -1
 
 # Reading input file using readlines()
 allStrategies = open('input.txt', 'r', encoding='utf8').readlines()
@@ -52,11 +73,15 @@ totalScore = 0
 for strategy in allStrategies:
     currentStrategy = strategy.strip().split(" ")
     # print("currentStrategy => ", currentStrategy)
-    currentScore = computeScore(currentStrategy)
+    myShape = inferMyShape(currentStrategy)
+    if myShape == -1:
+        print("Something went wrong with inferMyShape()!")
+
+    currentScore = computeScore([currentStrategy[0], myShape])
 
     # print("currentScore :: ", currentScore)
     if currentScore == -1:
-        print("Something went wrong!")
+        print("Something went wrong computeScore()!")
     else:
         totalScore += currentScore
 
